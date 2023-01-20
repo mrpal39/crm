@@ -7,7 +7,7 @@
 
 <h1>Profiles</h1>
 <ul>
-    {% for profile in Users %}
+    {% for profile in users %}
 
     <form action="{% url  'users:detail'  username=profile.username %}" method="POST">
             {% comment %} {% csrf_token %}
@@ -15,7 +15,7 @@
             <input type="submit" value="Save"> {% endcomment %}
     </form>
     
-    <li><a href="{% url  'users:UserDetail'  id=profile.id %}">{{ profile.name }}</a></li>
+    <li><a href="{% url  'users:UserDetail'  id=profile.id %}">{{ profile.email }}</a></li>
     {% endfor %}
 </ul>
 

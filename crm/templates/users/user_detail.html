@@ -2,7 +2,7 @@
 {% load static %}
 {% load rest_framework %}
 
-{% block title %}User: {{ object.username }}{% endblock %}
+{% block title %}User: {{ serializer }}{% endblock %}
 
 {% block content %}
 
@@ -11,12 +11,12 @@
   <div class="row">
     <div class="col-sm-12">
 
-      {% if data.name %}
+      {% comment %} {% if data.name %}
       <h2>{{ data.username }}</h2>
         <p>{{ data.name }}</p>
                 <p>{{ data.email }}</p>
 
-      {% endif %}
+      {% endif %} {% endcomment %}
     </div>
   </div>
 

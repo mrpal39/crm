@@ -5,11 +5,12 @@ from rest_framework.mixins import ListModelMixin, RetrieveModelMixin, UpdateMode
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 from django.views.generic import DetailView, RedirectView, UpdateView
+from rest_framework.permissions import AllowAny
 
 from .serializers import UserSerializer
 
 from django.shortcuts import get_object_or_404
-from rest_framework.renderers import TemplateHTMLRenderer
+from rest_framework.renderers import TemplateHTMLRenderer, JSONRenderer
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -32,13 +33,32 @@ class UserViewSet(RetrieveModelMixin, ListModelMixin, UpdateModelMixin, GenericV
         return Response(status=status.HTTP_200_OK, data=serializer.data)
 
 class UserList(APIView):
-    renderer_classes = [TemplateHTMLRenderer]
+    renderer_classes = [JSONRenderer, TemplateHTMLRenderer]
+
     template_name = 'users/User_list.html'
+    permission_classes = [AllowAny]
+
 
     def get(self, request):
-        queryset = User.objects.all()
-        return Response({'Users': queryset})
+        # return Response({'Users': queryset})
     
+        queryset = User.objects.filter(is_active=True).values('username','id','email','name')
+        print(queryset)
+
+        if request.accepted_renderer.format == 'html':
+            # TemplateHTMLRenderer takes a context dict,
+            # and additionally requires a 'template_name'.
+            # It does not require serialization.
+            data = {'users': queryset}
+            return Response(data, template_name='users/User_list.html')
+
+        # # JSONRenderer requires serialized data as normal.
+        # serializer = UserSerializer(instance=queryset)
+        # data = serializer.data
+        data = {'users': queryset}
+
+        return Response(data)
+        
 
 
 class UserDetail(APIView):
