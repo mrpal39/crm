@@ -63,15 +63,30 @@ class UserList(APIView):
 
 class UserDetail(APIView):
     model = User
-    renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'users/user_detail.html'
+    renderer_classes = [JSONRenderer, TemplateHTMLRenderer]
+    # template_name = 'users/user_detail.html'
+    permission_classes=[AllowAny]
 
     def get(self, request, id):
         if id:
-            data = get_object_or_404(User, pk=id)
-            print(data)
-            serializer = UserSerializer(data)
-            return Response({'serializer': serializer, 'data': data})
+
+            queryset = User.objects.filter(id=id).values('username','id','email','name')
+
+            if request.accepted_renderer.format == 'html':
+                # TemplateHTMLRenderer takes a context dict,
+                # and additionally requires a 'template_name'.
+                # It does not require serialization.
+                # return Response(data, template_name='users/User_list.html')
+                # serializer = UserSerializer(data)
+                return Response({'data': queryset[0]},template_name='users/user_detail.html')
+         
+            return Response({'users': queryset})
+        
+
+
+
+
+        
         # else:
         #     serializer = UserSerializer()
         #     return Response({'serializer': serializer})
