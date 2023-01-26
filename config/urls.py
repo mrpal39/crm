@@ -18,6 +18,10 @@ urlpatterns = [
     # User management
     path("users/", include("crm.users.urls", namespace="users")),
     path("accounts/", include("allauth.urls")),
+    path("dashboard/", include("crm.dashboard.urls", )),
+    path("blog/", include("crm.blog.urls", ))
+
+    # path("accounts/", include("allauth.urls")),
     # Your stuff: custom urls includes go here
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 if settings.DEBUG:
