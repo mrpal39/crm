@@ -7,33 +7,33 @@ from crm.dashboard.models import Author
 from mptt.models import MPTTModel, TreeForeignKey
 from ckeditor.fields import RichTextField
 # Catagory model
-# class Catagory(models.Model):
-#     name = models.CharField(max_length=200, null=True)
-#     slug = models.SlugField(null=True)
-#     image = models.CharField(max_length=300, null=True, blank=True )
-#     description = models.CharField(max_length=500, null=True,blank=True, verbose_name='Description')
-
-#     class Meta:
-#         verbose_name_plural = 'Catagory'
-
-#     def __str__(self):
-        # return str(self.name) 
-
-class Catagory(MPTTModel):
-    slug=models.SlugField(max_length=100,unique=True,)
+class Catagory(models.Model):
     name = models.CharField(max_length=200, null=True)
-    parent = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
-
-    description=models.TextField()
-    is_active=models.BooleanField(default=True)
-    created_at=models.DateTimeField(auto_now_add=True)
-    updated_at=models.DateTimeField(auto_now=True)
+    slug = models.SlugField(null=True)
+    image = models.CharField(max_length=300, null=True, blank=True )
+    description = models.CharField(max_length=500, null=True,blank=True, verbose_name='Description')
 
     class Meta:
-        ordering=('-created_at',)
+        verbose_name_plural = 'Catagory'
 
     def __str__(self):
-        return self.category_name
+        return str(self.name) 
+
+# class Catagory(MPTTModel):
+#     slug=models.SlugField(max_length=100,unique=True,)
+#     name = models.CharField(max_length=200, null=True)
+#     parent = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
+
+#     description=models.TextField()
+#     is_active=models.BooleanField(default=True)
+#     created_at=models.DateTimeField(auto_now_add=True)
+#     updated_at=models.DateTimeField(auto_now=True)
+
+#     class Meta:
+#         ordering=('-created_at',)
+
+#     def __str__(self):
+#         return self.category_name
 class Subcategory(models.Model):
    name = models.CharField(max_length=100)
    category = models.ForeignKey(Catagory,on_delete=models.DO_NOTHING,  blank=True, null=True)

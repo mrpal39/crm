@@ -40,7 +40,7 @@ LOCALE_PATHS = [str(ROOT_DIR / "locale")]
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(ROOT_DIR, 'db.sqlite3'),
+        'NAME': os.path.join(ROOT_DIR, 'd2b1.sqlite3'),
     }
 }
 # ------------------------------------------------------------------------------
