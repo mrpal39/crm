@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static %}
+{% load rest_framework %}
+
+{% block title %}User: {{ data }}{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+  <div class="row">
+    <div class="col-sm-12">
+    {{data.name}}
+
+     {% if data.name %}
+      <h2>{{ data.username }}</h2>
+        <p>{{ data.name }}</p>
+                <p>{{ data.email }}</p>
+
+      {% endif %}
+    </div>
+  </div>
+
+{% if object == request.user %}
+<!-- Action buttons -->
+<div class="row">
+
+  <div class="col-sm-12">
+    <a class="btn btn-primary" href="{% url 'users:update' %}" role="button">My Info</a>
+    <a class="btn btn-primary" href="{% url 'account_email' %}" role="button">E-Mail</a>
+    <!-- Your Stuff: Custom user template urls -->
+  </div>
+
+</div>
+<!-- End Action buttons -->
+{% endif %}
+
+</div>
+{% endblock content %}

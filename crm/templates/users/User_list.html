@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load rest_framework %}
+
+
+
+{% block content %}
+
+<h1>Profiles</h1>
+<ul>
+    {% for profile in users %}
+
+    <form action="{% url  'users:detail'  username=profile.username %}" method="POST">
+            {% comment %} {% csrf_token %}
+            {% render_form serializer %}
+            <input type="submit" value="Save"> {% endcomment %}
+    </form>
+    
+    <li><a href="{% url  'users:UserDetail'  id=profile.id %}">{{ profile.email }}</a></li>
+    {% endfor %}
+</ul>
+
+{% endblock content %}
