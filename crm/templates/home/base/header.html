@@ -1,51 +1,112 @@
-<!--------------------------------------
-NAVBAR
---------------------------------------->
-<nav class="topnav navbar navbar-expand-lg navbar-light bg-white fixed-top">
-    <div class="container">
-        <a class="navbar-brand" href="{% url 'home' %}"><strong>MultiBlogs</strong></a>
-        <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="navbar-collapse collapse" id="navbarColor02" >
-            <ul class="navbar-nav mr-auto d-flex align-items-center">
-                {% for cat in category %}
-                    
-                    <li class="nav-item">
-                    <a class="nav-link" href="{% url 'catagory' cat.slug %}">{{ cat }}</a>
-                    </li>
-                    
-                {% endfor %}
-                <li class="nav-item">
-                    {% if cat_count > 4 %}
-                <a class="nav-link" href="#"><span class="badge badge-secondary"> More Categories </span></a>
-                    {% endif %}
-                </li>
-                <li>
-                    <form class="form-inline form-control-sm" method="GET" action="{% url 'blog:search' %}">
-                        <input class="form-control form-control-sm mr-sm-1" id="form1" value="{{ search }}" type="search" name='q' placeholder="Search" aria-label="Search" required>
-                        <button class="btn btn-outline-success btn-sm my-2 my-sm-0" type="submit"> <i class="fa fa-search"></i></button>
-                      </form>
-                </li>
-            </ul>
-            <ul class="navbar-nav ml-auto d-flex align-items-center">
-                {% if request.user.is_authenticated %}
-                <li>
-                    <a class="nav-link" href="{% url 'dashboard' %}"><i class="fas fa-tachometer-alt"></i> Dashboard </a> 
-                </li>
-                <li>
-                    <a class="nav-link" href="{% url 'account_logout' %}"><i class="fas fa-sign-out-alt"></i></a>
-                </li>
-                {% else %}
-                <li class="nav-item highlight">
-                    <a class="nav-link" href="{% url 'account_login' %}"> Login Now </a>
-                    
-                </li>
- 
+{% load static i18n compress%}<!DOCTYPE html>
+{% get_current_language as LANGUAGE_CODE %}
+<nav class="topnav navbar navbar-expand-lg navbar-light bg-white ">
+  <div class="container">
+    <a class="navbar-brand" href="{% url 'home' %}"
+      ><strong>Dev Code</strong></a
+    >
+    <a class="navbar-brand" href="{% url 'blog:home' %}"
+      ><strong>Blog</strong></a
+    >
 
-                {% endif %}
-            </ul>
-        </div>
+    <button
+      class="navbar-toggler collapsed"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarColor02"
+      aria-controls="navbarColor02"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="navbar-collapse collapse" id="navbarColor02">
+      <ul class="navbar-nav ml-auto d-flex align-items-center">
+        {% if request.user.is_authenticated %}
+        <li class="nav-item">
+          {# URL provided by django-allauth/account/urls.py #}
+          <a
+            class="nav-link"
+            href="{% url 'users:detail' request.user.username  %}"
+            >{% translate "My Profile" %}</a
+          >
+        </li>
+
+        <li>
+          <a class="nav-link" href="{% url 'dashboard' %}"
+            ><i class="fas fa-tachometer-alt"></i> Dashboard
+          </a>
+        </li>
+        <li class="nav-item">
+          {# URL provided by django-allauth/account/urls.py #}
+          <a class="nav-link" href="{% url 'account_logout' %}"
+            >{% translate "Sign Out" %}</a
+          >
+        </li>
+        {% else %} {% if ACCOUNT_ALLOW_REGISTRATION %}
+        <li class="nav-item">
+          {# URL provided by django-allauth/account/urls.py #}
+          <a
+            id="sign-up-link"
+            class="nav-link"
+            href="{% url 'account_signup' %}"
+            >{% translate "Sign Up" %}</a
+          >
+        </li>
+        {% endif %}
+        <li class="nav-item">
+          {# URL provided by django-allauth/account/urls.py #}
+          <a id="log-in-link" class="nav-link" href="{% url 'account_login' %}"
+            >{% translate "Sign In" %}</a
+          >
+        </li>
+
+        {% endif %}
+      </ul>
+
+      <ul class="navbar-nav mr-auto d-flex align-items-center">
+        {% for cat in category %}
+
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'blog:catagory' cat.slug %}"
+            >{{ cat }}</a
+          >
+        </li>
+
+        {% endfor %}
+
+        <li class="nav-item">
+          {% if cat_count > 4 %}
+          <a class="nav-link" href="#"
+            ><span class="badge badge-secondary"> More Categories </span></a
+          >
+          {% endif %}
+        </li>
+        <li>
+          <form
+            class="form-inline form-control-sm right"
+            method="GET"
+            action="{% url 'blog:search' %}"
+          >
+            <input
+              class="form-control form-control-sm mr-sm-1"
+              id="form1"
+              value="{{ search }}"
+              type="search"
+              name="q"
+              placeholder="Search"
+              aria-label="Search"
+              required
+            />
+            <button
+              class="btn btn-outline-success btn-sm my-2 my-sm-0"
+              type="submit"
+            >
+              <i class="fa fa-search"></i>
+            </button>
+          </form>
+        </li>
+      </ul>
     </div>
-    </nav>
-    <!-- End Navbar -->
+  </div>
+</nav>

@@ -69,7 +69,7 @@
 		</div>
 		<div class="col-md-12 col-lg-8">
 			<article class="article-post">
-                <p>{{ post.detail }}</p>
+                <p>{{ post.detail|safe }}</p>
 			</article>
 			<div class="border p-5 bg-lightblue">
 				<div class="row justify-content-between">
@@ -145,7 +145,7 @@
 					{% comment %} <a class="text-dark" href="{% url 'blog:single_blog' first.id %}"> {{ first.title}} </a> {% endcomment %}
 					</h2>
 					<p class="card-text">
-						{{first.detail|truncatechars:150}}
+						{{first.detail|truncatechars:150 |safe}}
 					</p>
 					<div>
 						<small class="d-block">
@@ -170,7 +170,7 @@
 					<img height="80" src="{{p.image_url}}">
 					<div class="pl-3">
 						<h2 class="mb-2 h6 font-weight-bold">
-						<a class="text-dark" href="{% url 'single_blog' p.id %}">{{p.title}}</a>
+						<a class="text-dark" href="{% url 'blog:single_blog' p.id %}">{{p.title}}</a>
 						</h2>
 						<div class="card-text text-muted small">
 						{% if p.author.author_image %}
@@ -178,7 +178,7 @@
                         {% else %}
                             <img class="rounded-circle shadow" height="20" src="https://www.pngarts.com/files/11/Avatar-PNG-Transparent-Image.png" alt=""> 
                         {% endif %}
-                        {{ p.author.author.username }} in <a class="text-dark" href="{% url 'catagory' p.id %}">{{p.catagories }} </a>
+                        {{ p.author.author.username }} in <a class="text-dark" href="{% url 'blog:catagory' p.id %}">{{p.catagories }} </a>
 						
 						</div>
 						<small class="text-muted">{{ p.created_at | timesince }} ago .  {{p.visit_count}} views</small>

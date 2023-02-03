@@ -7,19 +7,19 @@ from crm.dashboard.models import Author
 from mptt.models import MPTTModel, TreeForeignKey
 from ckeditor.fields import RichTextField
 # Catagory model
-# class Catagory(models.Model):
-    # name = models.CharField(max_length=200, null=True)
-    # slug = models.SlugField(null=True)
-    # image = models.CharField(max_length=300, null=True, blank=True )
-    # description = models.CharField(max_length=500, null=True,blank=True, verbose_name='Description')
+class Catagory(models.Model):
+    name = models.CharField(max_length=200, null=True)
+    slug = models.SlugField(null=True)
+    image = models.CharField(max_length=300, null=True, blank=True )
+    description = models.CharField(max_length=500, null=True,blank=True, verbose_name='Description')
 
-    # class Meta:
-    #     verbose_name_plural = 'Catagory'
+    class Meta:
+        verbose_name_plural = 'Catagory'
 
-    # def __str__(self):
-    #     return str(self.name) 
+    def __str__(self):
+        return str(self.name) 
 
-class Catagory(MPTTModel):
+class Catagorys(MPTTModel):
     slug=models.SlugField(max_length=100,unique=True,)
     name = models.CharField(max_length=200, null=True)
     parent = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')

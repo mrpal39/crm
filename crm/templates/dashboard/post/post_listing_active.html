@@ -17,9 +17,9 @@
                                     <ul>
                                         {% for cat in post.catagories.all %}
                                         {% if forloop.counter|divisibleby:2 %}
-                                        <li class="cat-yellow"><a href="{% url 'catagory' cat.id %}" class="white">{{ cat }}</a></li>
+                                        <li class="cat-yellow"><a href="{% url 'blog:catagory' cat.id %}" class="white">{{ cat }}</a></li>
                                         {% else %}
-                                        <li class="cat-green mar-0"><a href="{% url 'catagory' cat.id %}" class="white">{{ cat }}</a></li>
+                                        <li class="cat-green mar-0"><a href="{% url 'blog:catagory' cat.id %}" class="white">{{ cat }}</a></li>
                                         {% endif %}
                                         {% endfor %}
                                     </ul>
@@ -28,7 +28,7 @@
                                     <p><a href="#">{{post.created_at|timesince}}</a></p>
                                 </div>
                                 <h2 class="entry-title">
-                                    <a href="{% url 'single_blog' post.id %}" class="white">{{post.title}}</a>
+                                    <a href="{% url 'blog:single_blog' post.id %}" class="white">{{post.title}}</a>
                                 </h2>
                                 <div class="item-meta white">
                                     <span>by</span>
@@ -48,9 +48,9 @@
                                     <ul>
                                         {% for cat in post.catagories.all %}
                                         {% if forloop.counter|divisibleby:2 %}
-                                        <li class="cat-yellow"><a href="{% url 'catagory' cat.id %}" class="white">{{ cat }}</a></li>
+                                        <li class="cat-yellow"><a href="{% url 'blog:catagory' cat.id %}" class="white">{{ cat }}</a></li>
                                         {% else %}
-                                        <li class="cat-green mar-0"><a href="{% url 'catagory' cat.id %}" class="white">{{ cat }}</a></li>
+                                        <li class="cat-green mar-0"><a href="{% url 'blog:catagory' cat.id %}" class="white">{{ cat }}</a></li>
                                         {% endif %}
                                         {% endfor %}
                                     </ul>
@@ -59,7 +59,7 @@
                                     <p><a href="#">{{post.created_at|timesince}}</a></p>
                                 </div>
                                 <h2 class="entry-title">
-                                    <a href="{% url 'single_blog' post.id %}" class="white">{{post.title}}</a>
+                                    <a href="{% url 'blog:single_blog' post.id %}" class="white">{{post.title}}</a>
                                 </h2>
                                 <div class="item-meta white">
                                     <span>by</span>

@@ -8,15 +8,14 @@ import environ
 ROOT_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
 # crm/
 APPS_DIR = ROOT_DIR / "crm"
-print(ROOT_DIR)
 env = environ.Env()
 
 READ_DOT_ENV_FILE = env.bool("DJANGO_READ_DOT_ENV_FILE", default=False)
 if READ_DOT_ENV_FILE:
     # OS environment variables take precedence over variables from .env
-    env.read_env(str(ROOT_DIR / ".env"))
+    env.read_env(str(APPS_DIR / ".env"))
 else:
-    env.read_env()
+    env.read_env(".env")
 
 
 # GENERAL
