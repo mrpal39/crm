@@ -12,6 +12,19 @@ from django.contrib import messages
 from django.core.paginator import Paginator
 from django.db.models import Q
 
+from crm.quotes.models import Quotes
+
+def HomePage(request):
+    
+    data= list(Quotes.objects.all().order_by('-id'))
+    context={
+
+        'data':data,
+    }
+
+    return render(request,"pages/home.html",context )
+
+
 
 class HomeView(View):
     def get(self,request,*args,**kwargs):

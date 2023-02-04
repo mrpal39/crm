@@ -2,6 +2,19 @@
 {% load rest_framework %}
 
 
-
 {% block content %}
+
+
+
+
+
+
+
+
+{% for message in data %}
+					<div class="alert alert-primary">
+						<strong>{{ message.text }}</strong>
+					</div>
+			
+				{% endfor %}
 {% endblock content %}
