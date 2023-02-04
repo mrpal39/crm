@@ -78,6 +78,7 @@ DJANGO_APPS = [
     "django.contrib.humanize", # Handy template tags
     "django.contrib.admin",
     # 'django.contrib.humanize'
+    
     "django.forms",
 ]
 THIRD_PARTY_APPS = [
@@ -99,7 +100,8 @@ LOCAL_APPS = [
     "crm.users",
     'crm.blog',
     "crm.dashboard",
-    # Your stuff: custom apps go here
+    'crm.chatgpt',
+    'crm.quotes',    # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -178,6 +180,10 @@ STATICFILES_FINDERS = [
 ]
 CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
 CKEDITOR_UPLOAD_PATH = "uploads/"
+
+
+
+
 
 
 # MEDIA
@@ -329,3 +335,18 @@ SPECTACULAR_SETTINGS = {
 }
 # Your stuff...
 # ------------------------------------------------------------------------------
+
+
+
+
+
+import os
+import openai
+
+
+
+
+
+
+openai.organization = "org-80oV8m7voYA4OmMwkXdfklqI"
+openai.api_key = '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'

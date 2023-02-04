@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}chat{% endblock %}
+
+{% block content %}
+<h1>ChatGpt</h1>
+
+
+
+
+<p>{% if data %}
+       
+    {% comment %} {{ data }}  {% endcomment %}
+    <div class="row">
+    {% for da in data.data %}
+
+    <div class="col-sm-6">
+    <div class="card" style="width: 18rem;">
+
+        <div class="card-body">
+          <h5 class="card-title"> {{da.id}} </h5>
+          <p class="card-text">{{da.object}}</p>
+          <p class="card-text">{{da.owned_by}}</p>
+        </div>
+        {% for key in da.permission %}
+
+         <ul class="list-group list-group-flush">
+          <li class="list-group-item">{{key}}</li>
+          
+          
+        </ul>
+          {% endfor %}
+        <div class="card-body">
+          <a href="#" class="card-link">Card link</a>
+          <a href="#" class="card-link">Another link</a>
+        </div> 
+
+    </div>
+    </div>
+    {% endfor %}
+    
+</div>
+    
+    
+    
+    
+    {% else %}You're not allowed to access this page.{% endif %}</p>
+{% endblock content %}
