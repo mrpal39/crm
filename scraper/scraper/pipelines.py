@@ -7,6 +7,7 @@
 # useful for handling different item types with a single interface
 from itemadapter import ItemAdapter
 from crm.quotes.models import Quotes
+from crm.blog.models import Blog
 
 import logging, coloredlogs
 logger = logging.getLogger(__name__)
@@ -18,12 +19,15 @@ class ScraperPipeline:
 
     def process_item(self, item, spider):
         try:
-            Quotes.objects.create(text=item['text'], author=item['author'])
+
+
+
+            Blog.objects.create(title=item['title'], detail=item['detail'], author_id=1)
             print("\n")
-            logger.warn("Loaded quote {}".format(item['text']))
-            print(item)
+            logger.warn("Loaded quote {}".format(item['title']))
+            # print(item)
         except Exception as e:
             print("\n")
             logger.error("\nFailed to load quote, Reason For Failure:{}".format(e))
-            print(item)
+            # print(item)
         return item

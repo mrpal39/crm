@@ -8,6 +8,10 @@ import scrapy
 import pathlib
 
 
+class BlogItem(scrapy.Item):
+    title = scrapy.Field()
+    detail = scrapy.Field()
+
 class QuotesItem(scrapy.Item):
     author = scrapy.Field()
     text = scrapy.Field()

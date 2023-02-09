@@ -6,7 +6,7 @@ from django.core.management import call_command
 from crm.quotes.models  import Quotes
 def qoutes(request):
 
-    call_command('scrape_all_quotes')
+    call_command('digitalocean_all_post')
     
     
     return redirect("/")

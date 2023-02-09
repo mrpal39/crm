@@ -26,7 +26,7 @@ urlpatterns = [
     path("blog/", include("crm.blog.urls",namespace="blog" )),
     path("gpt/", include("crm.chatgpt.urls", )),
 
-    path("s/", include("crm.quotes.urls", )),
+    path("s/", include("crm.quotes.urls", namespace="qoutes")),
 
     # path("accounts/", include("allauth.urls")),
     # Your stuff: custom urls includes go here
