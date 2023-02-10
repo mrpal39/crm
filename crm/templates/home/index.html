@@ -16,11 +16,13 @@
                     
 					<a href="{% url 'blog:single_blog' first.id %}" class="btn btn-dark">Read More</a>
 				</div>
-				<div class="col-md-6 d-none d-md-block pr-0" ><img style="background-size: cover;" src="{{ first.image_url }}" alt="">	</div>
+				<div class="col-md-3 col-md-6 d-none d-md-block pr-0" >
+					<img style="background-size: cover;" src="{{ first.image_url }}" alt="">	
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
+
 
 
    
@@ -92,7 +94,7 @@
 					<a class="text-dark" href="{% url 'blog:single_blog' p.id %}">{{ p.title }}</a>
 					</h2>
 					<p>
-						{{ p.detail |truncatechars:100 }}
+						{{ p.detail |truncatechars:100 |safe }}
 					</p>
 					<div class="card-text text-muted small">
                         {% if p.author.author_image %}
@@ -167,5 +169,7 @@
 			</ol>
 		</div>
 	</div>
+</div>
+
 </div>
 {% endblock %}

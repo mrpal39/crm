@@ -22,30 +22,33 @@
 			</div>
 			{% endif %}
 
-					<p class="text-uppercase font-weight-bold">
-						<a class="text-danger" href="{% url 'blog:catagory' post.id %}">{{post.catagories}}</a>
-					</p>
-					<h1 class="display-4 secondfont mb-3 font-weight-bold">{{ post.title }}</h1>
-					<p class="mb-3">
-						 Analysts told CNBC that the currency could hit anywhere between $1.35-$1.40 if the deal gets passed through the U.K. parliament.
-					</p>
-					<div class="d-flex align-items-center">
-                    {% if p.author.author_image %}
-                        <img height="20" class="rounded-circle shadow" style="border-radius: 50%;" src="{{ p.author.author_image.url }}">
-                    {% else %}
-                        <img class="rounded-circle shadow" height="70" src="https://www.pngarts.com/files/11/Avatar-PNG-Transparent-Image.png" alt=""> 
-                    {% endif %}
-						<small class="ml-2"> {{ post.author.author.username }} <span class="text-muted d-block">{{post.created_at | timesince }} ago ; {{post.visit_count }} views </span>
-						</small>
-					</div>
-				</div>
-				<div class="col-md-6 pr-0">
+			<p class="text-uppercase font-weight-bold">
+				<a class="text-danger" href="{% url 'blog:catagory' post.id %}">{{post.catagories}}</a>
+			</p>
+			<h1 class="display-4 secondfont  font-weight-bold">{{ post.title }}</h1>
+			{% comment %} <p class="mb-3">
+					Analysts told CNBC that the currency could hit anywhere between $1.35-$1.40 if the deal gets passed through the U.K. parliament.
+			</p> {% endcomment %}
+			<div class="row">
+
+				<div class="col-md-3 pr-0">
 					<img src="{{post.image_url }}">
 				</div>
 			</div>
+			<div class="d-flex align-items-center">
+			{% if p.author.author_image %}
+				<img height="20" class="rounded-circle shadow" style="border-radius: 50%;" src="{{ p.author.author_image.url }}">
+			{% else %}
+				<img class="rounded-circle shadow" height="70" src="https://www.pngarts.com/files/11/Avatar-PNG-Transparent-Image.png" alt=""> 
+			{% endif %}
+				<small class="ml-2"> {{ post.author.author.username }} <span class="text-muted d-block">{{post.created_at | timesince }} ago ; {{post.visit_count }} views </span>
+				</small>
+			</div>
+			</div>
+			</div>
 		</div>
 	</div>
-</div>
+
 
 
 <div class="container pt-4 pb-4">
@@ -129,7 +132,7 @@
 
 
 
-<div class="container pt-4 pb-4">
+<div class=" pt-4 pb-4">
 	<h5 class="font-weight-bold spanborder"><span>Read next</span></h5>
 	
 	<div class="row">
@@ -194,7 +197,7 @@
 	</div>
 	
 </div>
-
+</div>
 
 <!-- messages section -->
 
