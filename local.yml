@@ -13,8 +13,9 @@ services:
     container_name: cms_local_django
     depends_on:
       - postgres
-      - redis
-      - mailhog
+      # - redis
+      # - mailhog
+      - selenium
     volumes:
       - .:/app:z
     env_file:
@@ -36,58 +37,100 @@ services:
     env_file:
       - ./.envs/.local/.postgres
 
-  docs:
-    image: cms_local_docs
-    container_name: cms_local_docs
-    build:
-      context: .
-      dockerfile: ./compose/local/docs/Dockerfile
-    env_file:
-      - ./.envs/.local/.django
-    volumes:
-      - ./docs:/docs:z
-      - ./config:/app/config:z
-      - ./cms:/app/cms:z
+  # docs:
+  #   image: cms_local_docs
+  #   container_name: cms_local_docs
+  #   build:
+  #     context: .
+  #     dockerfile: ./compose/local/docs/Dockerfile
+  #   env_file:
+  #     - ./.envs/.local/.django
+  #   volumes:
+  #     - ./docs:/docs:z
+  #     - ./config:/app/config:z
+  #     - ./cms:/app/cms:z
+  #   ports:
+  #     - "9000:9000"
+  #   command: /start-docs
+
+  # mailhog:
+  #   image: mailhog/mailhog:v1.0.0
+  #   container_name: cms_local_mailhog
+  #   ports:
+  #     - "8025:8025"
+
+  # redis:
+  #   image: redis:6
+  #   container_name: cms_local_redis
+
+  # celeryworker:
+  #   <<: *django
+  #   image: cms_local_celeryworker
+  #   container_name: cms_local_celeryworker
+  #   depends_on:
+  #     - redis
+  #     - postgres
+  #     - mailhog
+  #   ports: []
+  #   command: /start-celeryworker
+
+  # celerybeat:
+  #   <<: *django
+  #   image: cms_local_celerybeat
+  #   container_name: cms_local_celerybeat
+  #   depends_on:
+  #     - redis
+  #     - postgres
+  #     - mailhog
+  #   ports: []
+  #   command: /start-celerybeat
+
+  # flower:
+  #   <<: *django
+  #   image: cms_local_flower
+  #   container_name: cms_local_flower
+  #   ports:
+  #     - "5555:5555"
+  #   command: /start-flower
+  # chrome:
+  #   image: selenium/node-chrome:beta
+  #   shm_size: 2gb
+  #   depends_on:
+  #     - selenium-hub
+  #   environment:
+  #     - SE_EVENT_BUS_HOST=selenium-hub
+  #     - SE_EVENT_BUS_PUBLISH_PORT=4442
+  #     - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+  # edge:
+  #   image: selenium/node-edge:beta
+  #   shm_size: 2gb
+  #   depends_on:
+  #     - selenium-hub
+  #   environment:
+  #     - SE_EVENT_BUS_HOST=selenium-hub
+  #     - SE_EVENT_BUS_PUBLISH_PORT=4442
+  #     - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+
+  # firefox:
+    # image: selenium/node-firefox:beta
+    # shm_size: 2gb
+    # depends_on:
+    #   - selenium-hub
+    # environment:
+    #   - SE_EVENT_BUS_HOST=selenium-hub
+    #   - SE_EVENT_BUS_PUBLISH_PORT=4442
+    #   - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+
+  # selenium-hub:
+  #   image: selenium/hub:latest
+  #   container_name: selenium-hub
+  #   ports:
+  #     - "4442:4442"
+  #     - "4443:4443"
+  #     - "4444:4444"
+
+  selenium:
+    image: selenium/standalone-chrome
     ports:
-      - "9000:9000"
-    command: /start-docs
-
-  mailhog:
-    image: mailhog/mailhog:v1.0.0
-    container_name: cms_local_mailhog
-    ports:
-      - "8025:8025"
-
-  redis:
-    image: redis:6
-    container_name: cms_local_redis
-
-  celeryworker:
-    <<: *django
-    image: cms_local_celeryworker
-    container_name: cms_local_celeryworker
-    depends_on:
-      - redis
-      - postgres
-      - mailhog
-    ports: []
-    command: /start-celeryworker
-
-  celerybeat:
-    <<: *django
-    image: cms_local_celerybeat
-    container_name: cms_local_celerybeat
-    depends_on:
-      - redis
-      - postgres
-      - mailhog
-    ports: []
-    command: /start-celerybeat
-
-  flower:
-    <<: *django
-    image: cms_local_flower
-    container_name: cms_local_flower
-    ports:
-      - "5555:5555"
-    command: /start-flower
+    - 4444:4444
+    restart: always
